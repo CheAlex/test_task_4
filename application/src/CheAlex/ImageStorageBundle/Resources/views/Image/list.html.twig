@@ -1,0 +1,21 @@
+{% extends 'CheAlexImageStorageBundle::base.html.twig' %}
+
+{% block meta %}
+    {{ parent() }}
+    <meta name="image_track_url" content="{{ url('che_alex_image_storage_image_track_view') }}">
+{% endblock meta %}
+
+{% block body %}
+    <div id="images">
+        {% for image in images %}
+            <img src="{{ image.url }}" alt="{{ image.fileName }}" data-id="{{ image.id }}">
+        {% endfor %}
+    </div>
+{% endblock body %}
+
+{% block body_javascript %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('bundles/chealeximagestorage/js/image-list.js') }}"></script>
+{% endblock body_javascript %}

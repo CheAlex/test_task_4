@@ -1,0 +1,66 @@
+version: '2'
+
+services:
+    mysql:
+        container_name: test_task_4.mysql_1
+        command: --character-set-server=utf8 --collation-server=utf8_general_ci
+        image: mysql:5.7.18
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE:      symfony
+#            MYSQL_USER:          symfony
+#            MYSQL_PASSWORD:      symfony
+        volumes:
+            - ./vars/database/symfony:/var/lib/mysql
+            - ./vars/logs/mysql/symfony:/var/log/mysql
+        networks:
+            test_task_4_net:
+                ipv4_address: 172.16.5.11
+
+    memcached:
+        container_name: test_task_4.memcached_1
+        image: memcached:1.4.37-alpine
+        mem_limit: 128m
+        command: memcached -m 128m
+        networks:
+            test_task_4_net:
+                ipv4_address: 172.16.5.15
+
+    php_fpm:
+        container_name: test_task_4.php_fpm_1
+        build:
+            context: ./docker/php_fpm
+        volumes:
+            - ./application:/var/www/app
+        tty: true
+        working_dir: /var/www/app
+        depends_on:
+            - mysql
+        networks:
+            test_task_4_net:
+                ipv4_address: 172.16.5.13
+
+    nginx:
+        container_name: test_task_4.nginx_1
+        build:
+            context: ./docker/nginx
+        ports:
+            - "8080:80"
+        environment:
+            TERM: xterm
+        volumes:
+            - ./application:/var/www/app
+            - ./docker/nginx/configs/symfony.conf:/etc/nginx/conf.d/symfony.conf
+            - ./vars/logs/nginx/:/var/log/nginx
+        depends_on:
+            - php_fpm
+        networks:
+            test_task_4_net:
+                ipv4_address: 172.16.5.14
+
+networks:
+    test_task_4_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.5.0/24

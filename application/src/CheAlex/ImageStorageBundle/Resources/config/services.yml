@@ -1,0 +1,40 @@
+services:
+    che_alex_image_storage.application.service.image.sync_file_storage_service:
+        class: CheAlex\ImageStorage\Application\Service\Image\SyncFileStorageService
+        arguments:
+            - '%app_image_storage_path%'
+            - '@CheAlex\ImageStorage\Domain\Repository\ImageRepositoryInterface'
+
+    CheAlex\ImageStorage\Application\Service\Image\TrackImageViewService:
+        autowire: true
+
+    CheAlex\ImageStorage\Application\Service\ImageStorage:
+        arguments:
+            - '%app_image_web_path%'
+
+    CheAlex\ImageStorageBundle\Controller\:
+        resource: '../../Controller'
+        tags:
+            - 'controller.service_arguments'
+
+    CheAlex\ImageStorage\Infrastructure\Domain\ViewDao\DoctrineImageViewDao:
+        autowire: true
+
+    CheAlex\ImageStorage\Infrastructure\Domain\ViewDao\CachedImageViewDao:
+        arguments:
+            - '@CheAlex\ImageStorage\Infrastructure\Domain\ViewDao\DoctrineImageViewDao'
+            - '@doctrine_cache.providers.default_memchached'
+
+    CheAlex\ImageStorage\Domain\ViewDao\ImageViewDaoInterface: '@CheAlex\ImageStorage\Infrastructure\Domain\ViewDao\CachedImageViewDao'
+
+    CheAlex\ImageStorageBundle\EventListener\UserIdSetter:
+        arguments:
+            - '@CheAlex\ImageStorage\Domain\Service\IdentityGeneratorInterface'
+            - '%app_user_id_cookie%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+            - { name: kernel.event_listener, event: kernel.response }
+
+    CheAlex\ImageStorage\Domain\Service\IdentityGeneratorInterface: '@CheAlex\ImageStorage\Infrastructure\Domain\Service\UuidIdentityGenerator'
+
+    CheAlex\ImageStorage\Infrastructure\Domain\Service\UuidIdentityGenerator: ~

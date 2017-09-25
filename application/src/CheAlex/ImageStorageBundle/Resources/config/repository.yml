@@ -1,0 +1,15 @@
+services:
+    CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\BaseRepository:
+        abstract: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
+    CheAlex\ImageStorage\Domain\Repository\ImageRepositoryInterface: '@CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\ImageRepository'
+
+    CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\ImageRepository:
+        parent: CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\BaseRepository
+
+    CheAlex\ImageStorage\Domain\Repository\ImageViewRepositoryInterface: '@CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\ImageViewRepository'
+
+    CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\ImageViewRepository:
+        parent: CheAlex\ImageStorage\Infrastructure\Domain\Repository\Doctrine\BaseRepository

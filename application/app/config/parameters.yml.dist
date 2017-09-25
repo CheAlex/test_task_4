@@ -1,0 +1,12 @@
+parameters:
+    database_host: 172.16.5.11
+    database_port: 3306
+    database_name: symfony
+    database_user: root
+    database_password: root
+    memchached_host: 172.16.5.15
+    memchached_port: 11211
+    secret: ThisTokenIsNotSoSecretChangeIt
+    app_image_storage_path: '%kernel.project_dir%/web/images'
+    app_image_web_path: /images
+    app_user_id_cookie: __guid

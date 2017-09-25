@@ -1,0 +1,21 @@
+CheAlex\ImageStorage\Domain\Model\ImageView:
+    type: entity
+    table: image_views
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        userId:
+            type: string
+        createdAt:
+            type: datetime_immutable
+    manyToOne:
+        image:
+            targetEntity: CheAlex\ImageStorage\Domain\Model\Image
+            joinColumn:
+                name: image_id
+                referencedColumnName: id
+                nullable: false

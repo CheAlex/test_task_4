@@ -1,0 +1,7 @@
+che_alex_image_storage_image_list:
+    path:     /
+    defaults: { _controller: CheAlexImageStorageBundle:Image:list }
+
+che_alex_image_storage_image_track_view:
+    path:     /image/track-view
+    defaults: { _controller: CheAlexImageStorageBundle:Image:trackView }
