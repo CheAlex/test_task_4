@@ -44,4 +44,4 @@ where `test-task-4.dev` can be changed in `docker/nginx/configs/symfony.conf`
 
 #### SQL queries
 
-SQL queries are located in `queries.sql`
+SQL queries are located in `queries.sql`. You can connect to MySQL through `172.16.5.11:3306`.
