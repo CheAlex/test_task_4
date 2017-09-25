@@ -39,7 +39,7 @@
 where `test-task-4.dev` can be changed in `docker/nginx/configs/symfony.conf`
 3. Run `redeploy.sh`
 4. To sync database with file storage run `run_sync_file_storage_command.sh`. Image files are located in `application/web/images`.
-5. Now you can visit running application through **[test-task-4.dev/app_dev.php](http://test-task-4.dev/app_dev.php)** or **[test-task-4.dev](http://test-task-4.dev)**
+5. Now you can visit running application through **[test-task-4.dev:8080/app_dev.php](http://test-task-4.dev:8080/app_dev.php)** or **[test-task-4.dev:8080](http://test-task-4.dev:8080)**
 
 
 #### SQL queries
