@@ -18,27 +18,30 @@
 Событие открытия фото записывается в базу: одно событие одна запись.
 
 Написать запросы к БД для получения следующих данных для последних 50 посетителей:
-	идентификаторы посетителей
-	дата первого открытия фото
-	дата последнего открытия фото
-	какое фото сколько раз было открыто посетителем
-	сколько всего фото было открыто посетителем
+    идентификаторы посетителей
+    дата первого открытия фото
+    дата последнего открытия фото
+    какое фото сколько раз было открыто посетителем
+    сколько всего фото было открыто посетителем
 
 Дополнительно: запросы с сортировкой по полям
-	дата первого открытия 
-	дата последнего открытия
-	открыто всего
+    дата первого открытия 
+    дата последнего открытия
+    открыто всего
 
 #### Usage
 
 1. Install **[docker](https://docs.docker.com/engine/installation/linux/ubuntu/)**, **[docker-compose](https://docs.docker.com/compose/install/)**
-2. Copy `docker-compose.yml.dist` into `docker-compose.yml`
-3. Edit your `docker-compose.yml` (it is not under VCS) as you prefer
-4. Add to `/etc/hosts`:
+2. Add to `/etc/hosts`:
 ```
-172.16.5.14 test-task-4.dev
+127.0.0.1 test-task-4.dev
 ```
 where `test-task-4.dev` can be changed in `docker/nginx/configs/symfony.conf`
+3. Run `redeploy.sh`
+4. To sync database with file storage run `run_sync_file_storage_command.sh`. Image files are located in `application/web/images`.
+5. Now you can visit running application through **[test-task-4.dev/app_dev.php](http://test-task-4.dev/app_dev.php)** or **[test-task-4.dev](http://test-task-4.dev)**
 
-5. Run `redeploy.sh`
-6. Now you can visit running application through **[test-task-4.dev/app_dev.php](http://test-task-4.dev/app_dev.php)** or **[test-task-4.dev](http://test-task-4.dev)**
+
+#### SQL queries
+
+SQL queries are located in `queries.sql`
